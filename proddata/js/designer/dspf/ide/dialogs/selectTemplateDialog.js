@@ -1,6 +1,9 @@
 
-
 pui.ide.dialogs.selectTemplateDialog = function() {
+
+  function selectTemplate() {
+    ajaxJSON()
+  }
 
   var winItems = 
 	[{
@@ -12,8 +15,8 @@ pui.ide.dialogs.selectTemplateDialog = function() {
     	"html": ""
 	}];
 
-  var wwidth = 800;
-  var wheight = 600;
+  var wwidth = 700;
+  var wheight = 500;
   var vwidth = pui.ide.viewPort.getWidth();
   var vheight = pui.ide.viewPort.getHeight();
 
@@ -21,8 +24,8 @@ pui.ide.dialogs.selectTemplateDialog = function() {
     "title": "Select Template",
     "width": wwidth,
     "height": wheight,
-    "minWidth": 500,
-    "minHeight": 375,
+    "minWidth": 400,
+    "minHeight": 275,
     "layout": "fit",
     "modal": true,
     "maximized": (vwidth < wwidth || vheight < wheight) ? true : false,
@@ -33,7 +36,7 @@ pui.ide.dialogs.selectTemplateDialog = function() {
 	  {
   		"show": function() {
   		  var contentArea = Ext.get('_select_template_content').dom.firstChild.firstChild;
-  		  contentArea.innerHTML = "Select template content goes here";
+  		  contentArea.innerHTML = pui["cloud_templates_html"];
 		  },
       "beforeclose": function() 
 		  {
@@ -56,14 +59,17 @@ pui.ide.dialogs.selectTemplateDialog = function() {
       { 
         "text": "Ok",
         "handler": function() {
-          alert("Ok - to do");
-          win.close();
+          if (pui.ide["sendTemplateSelection"]()) {
+            win.close();
+          }
         }
       },
       {
         "text": "Cancel",
         "handler": function() {
-          alert("Cancel - to do");
+          // One possible option is: Instead of leaving the workspace completely blank, we can use the first template as a default template
+          //pui.ide["setTemplateSelection"](0);
+          //pui.ide["sendTemplateSelection"]();
           win.close();
         }
       }
@@ -75,5 +81,38 @@ pui.ide.dialogs.selectTemplateDialog = function() {
 
   toolbar.designer.disabled = true;  
   win.show();
+}
+
+
+pui.ide["setTemplateSelection"] = function(idx) {
+  getObj("_cloud_template_selection").value = String(idx);
+  var i = 0;
+  var templateDiv = getObj("_cloud_template" + i);
+  while (templateDiv) {
+    templateDiv.style.backgroundColor = "";
+    i++;
+    templateDiv = getObj("_cloud_template" + i);
+  }
+  getObj("_cloud_template" + idx).style.backgroundColor = "#cccccc";
+}
+
+pui.ide["sendTemplateSelection"] = function() {
+  var idx = getObj("_cloud_template_selection").value;
+  if (idx === "") {
+    pui.alert("Please select a template.");
+    return false;
+  }
+  ajaxJSON({
+    "method": "post",
+    "url": "/select_template",
+    "params": {
+      "workspace_id": pui["workspace_id"],
+      "template_idx": idx
+    },
+    "handler": function(response) {
+      alert(JSON.stringify(response));
+    }
+  });
+  return true;
 }
 
