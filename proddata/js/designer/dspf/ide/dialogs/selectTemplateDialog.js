@@ -110,9 +110,62 @@ pui.ide["sendTemplateSelection"] = function() {
       "template_idx": idx
     },
     "handler": function(response) {
-      alert(JSON.stringify(response));
+      if (response.success) {
+        pui.ide.openWorkspaceFiles(pui["cloud_templates"][idx]);
+      }
     }
   });
   return true;
 }
 
+
+pui.ide.openWorkspaceFiles = function(settings) {
+  var files = [];
+  for (var i = 0; i < settings["open files"].length; i++) {
+    var file = settings["open files"][i];
+    files.push(file);
+  }
+  function processFile() {
+    if (files.length <= 0) return;
+    file = files.shift();
+    pui.ide.openWorkspaceFile(file, processFile);
+  }
+  processFile();
+}
+
+pui.ide.openWorkspaceFile = function(file, callback) {
+
+  var name = [pui["PROFOUNDJS_DIR"], "modules", pui["workspace_id"], file.name].join(pui["dirSeparator"]);
+  if (file["clientside"]) {
+    name = [pui["DOCUMENT_ROOT"], "profoundui", "userdata", "custom", pui["workspace_id"], file.name].join(pui["dirSeparator"]);
+  }
+
+  var centerPanel = Ext.getCmp("centerPanel");
+  if (!file["rdf"]) {
+    name = name.substr(pui["PROFOUNDJS_DIR"].length);
+    pui.ide.createEditTab(name, function(tab) {
+      centerPanel.setActiveTab(centerPanel.add(tab));
+      callback();
+    });
+  }
+  else {
+    var tab = centerPanel.add(pui.ide.createDesignTab());
+    centerPanel.setActiveTab(tab);
+    toolbar.open({
+      library: null,
+      file: null,
+      member: null,
+      url: name,
+      ifsFile: name,
+      "onsuccess": function () {
+        tab.globalKeywords = pui.globalKeywords;
+        callback();
+      },
+      onfail: function() {     
+        centerPanel.remove(tab, true);
+        callback();
+      }
+    });
+  }
+
+}
