@@ -41,7 +41,7 @@ function helpTextResponsiveProperties(defVal, descVal, descAdd) {
   var helpString = "<hr><b title='The default value(s) of this property.'>Default Value:</b> ";
   // <c>value</c>
   helpString += codeOpen;
-  if (posDefVals.includes(defVal)) {
+  if (posDefVals.indexOf(defVal) != 1) {
     if (defVal === "true") {
       helpString += trueSpan;
     } else if (defVal === "blank") {
@@ -78,7 +78,7 @@ function helpTextResponsiveProperties(defVal, descVal, descAdd) {
   helpString += descVal;
 
   // Other...
-  if (descAdd.includes("other")) {
+  if (descAdd.indexOf("other") != 1) {
     helpString += otherText;
   }
   // ------------------
