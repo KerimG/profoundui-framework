@@ -19,7 +19,7 @@
 
 
 
-function helpTextResponsiveProperties(defVal, descVal, descAdd) {
+pui.layout.template.helpTextResponsiveProperties = function(defVal, descVal, descAdd) {
   var codeOpen = "<code style='color: blue; letter-spacing: 0px; font-weight: bold;'>";
   var codeClose = "</code>";
   var falseSpan = "<span title='The default value of the property is false.'>false</span>";
@@ -41,7 +41,7 @@ function helpTextResponsiveProperties(defVal, descVal, descAdd) {
   var helpString = "<hr><b title='The default value(s) of this property.'>Default Value:</b> ";
   // <c>value</c>
   helpString += codeOpen;
-  if (posDefVals.indexOf(defVal) != 1) {
+  if (posDefVals.indexOf(defVal) != -1) {
     if (defVal === "true") {
       helpString += trueSpan;
     } else if (defVal === "blank") {
@@ -105,9 +105,9 @@ pui.layout.template.responsiveLayoutTemplate = function (parms) {
   if (returnProps) {
     // Define the properties that appear in Template Settings in Designer.
     return pui.layout.mergeProps([
-      { name: "layout items", help: helpTextResponsiveProperties("5", "The number of containers for this layout.", ["other"]), choices: ['1', '2', '3', '4', '5', '6', 'Other...'] },
-      { name: "style rules", type: "responsive", help: helpTextResponsiveProperties("<br>@media screen { <br>&nbsp;&nbsp;&nbsp;#_id_ > .puiresp { <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:grid; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows:auto; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns:repeat(4, 1fr); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-column-gap:3px; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-row-gap:3px;<br>&nbsp;&nbsp;&nbsp;}<br>}", "String of CSS stylesheet rules, used to define positions and dimensions of containers. Leave empty when styles are expected to be defined" +   " in an external stylesheet. See <a target=\"_blank\" href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\">Responsive Layout</a> for more information.", []) },
-      { name: "use viewport", help: helpTextResponsiveProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information.", []), choices: ["true", "false"] }
+      { name: "layout items", help: pui.layout.template.helpTextResponsiveProperties("5", "The number of containers for this layout.", ["other"]), choices: ['1', '2', '3', '4', '5', '6', 'Other...'] },
+      { name: "style rules", type: "responsive", help: pui.layout.template.helpTextResponsiveProperties("<br>@media screen { <br>&nbsp;&nbsp;&nbsp;#_id_ > .puiresp { <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:grid; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows:auto; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns:repeat(4, 1fr); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-column-gap:3px; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-row-gap:3px;<br>&nbsp;&nbsp;&nbsp;}<br>}", "String of CSS stylesheet rules, used to define positions and dimensions of containers. Leave empty when styles are expected to be defined" +   " in an external stylesheet. See <a target=\"_blank\" href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\">Responsive Layout</a> for more information.", []) },
+      { name: "use viewport", help: pui.layout.template.helpTextResponsiveProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information.", []), choices: ["true", "false"] }
     ]);
   }
 
