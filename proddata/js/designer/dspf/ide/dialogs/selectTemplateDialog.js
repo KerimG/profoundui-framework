@@ -130,8 +130,9 @@ pui.ide.openWorkspaceFiles = function(settings) {
   }
   function processFile() {
     if (files.length <= 0) {
-      var centerPanel = Ext.getCmp("centerPanel");
-      centerPanel.setActiveTab(centerPanel.getItem(0));      
+      setTimeout(function() {        
+        centerPanel.setActiveTab(centerPanel.getItem(0));        
+      }, 0);
       return;
     }
     file = files.shift();
