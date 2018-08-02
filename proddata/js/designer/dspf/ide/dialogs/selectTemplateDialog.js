@@ -110,8 +110,6 @@ pui.ide["sendTemplateSelection"] = function() {
       "template_idx": idx
     },
     "handler": function(response) {
-      var centerPanel = Ext.getCmp("centerPanel");
-      centerPanel.remove(centerPanel.getActiveTab(), true);
       if (response.success) {
         pui.ide.openWorkspaceFiles(pui["cloud_templates"][idx]);
       }
@@ -122,6 +120,9 @@ pui.ide["sendTemplateSelection"] = function() {
 
 
 pui.ide.openWorkspaceFiles = function(settings) {
+  var centerPanel = Ext.getCmp("centerPanel");
+  centerPanel.remove(centerPanel.getActiveTab(), true);
+
   var files = [];
   for (var i = 0; i < settings["open files"].length; i++) {
     var file = settings["open files"][i];
