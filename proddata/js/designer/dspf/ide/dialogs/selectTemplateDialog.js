@@ -36,7 +36,7 @@ pui.ide.dialogs.selectTemplateDialog = function() {
 	  {
   		"show": function() {
   		  var contentArea = Ext.get('_select_template_content').dom.firstChild.firstChild;
-  		  contentArea.innerHTML = pui["cloud_templates_html"];
+  		  contentArea.innerHTML = pui.cloud["templates_html"];
 		  },
       "beforeclose": function() 
 		  {
@@ -106,12 +106,12 @@ pui.ide["sendTemplateSelection"] = function() {
     "method": "post",
     "url": "/select_template",
     "params": {
-      "workspace_id": pui["workspace_id"],
+      "workspace_id": pui.cloud["workspace_id"],
       "template_idx": idx
     },
     "handler": function(response) {
       if (response.success) {
-        pui.ide.openWorkspaceFiles(pui["cloud_templates"][idx]);
+        pui.ide.openWorkspaceFiles(pui.cloud["templates"][idx]);
       }
     }
   });
@@ -143,9 +143,9 @@ pui.ide.openWorkspaceFiles = function(settings) {
 
 pui.ide.openWorkspaceFile = function(file, callback) {
 
-  var name = [pui["PROFOUNDJS_DIR"], "modules", pui["workspace_id"], file.name].join(pui["dirSeparator"]);
+  var name = [pui["PROFOUNDJS_DIR"], "modules", pui.cloud["workspace_id"], file.name].join(pui["dirSeparator"]);
   if (file["clientside"]) {
-    name = [pui["DOCUMENT_ROOT"], "profoundui", "userdata", "custom", pui["workspace_id"], file.name].join(pui["dirSeparator"]);
+    name = [pui["DOCUMENT_ROOT"], "profoundui", "userdata", "custom", pui.cloud["workspace_id"], file.name].join(pui["dirSeparator"]);
   }
 
   var centerPanel = Ext.getCmp("centerPanel");
