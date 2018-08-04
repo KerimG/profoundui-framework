@@ -2,6 +2,7 @@
 pui.cloud.publish = function() {
 
   pui.cloud.save(function() {
+    pui.cloud.updateSettings();
     pui.cloud.writeSettings(function() {
       screenMask.msg = "Sharing workspace...";
       screenMask.show();
