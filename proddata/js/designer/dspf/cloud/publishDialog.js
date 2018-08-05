@@ -30,13 +30,15 @@ pui.cloud.publishDialog = function() {
     "listeners": 
 	  {
   		"show": function() {
-        var user = null;  // to do -- retreieve currently signed in user
-        if (user) {
-          pui.cloud["publish screen"]["show"]();
-        }
-        else {
-          pui.cloud["signin screen"]["show"]();          
-        }
+        setTimeout(function() {
+          var user = null;  // to do -- retreieve currently signed in user
+          if (user) {
+            pui.cloud["publish screen"]["show"]();
+          }
+          else {
+            pui.cloud["signin screen"]["show"]();          
+          }
+        }, 10);
 		  },
       "beforeclose": function() 
 		  {
@@ -55,6 +57,7 @@ pui.cloud.publishDialog = function() {
   });
 
   toolbar.designer.disabled = true;
+  pui.cloud.savedPublishDialogReference = win;
   win.show();
 }
 
@@ -62,4 +65,8 @@ pui.cloud.publishDialog = function() {
 pui.cloud.show = function(view) {
   var contentArea = Ext.get(pui.cloud.currentContentAreaId).dom.firstChild.firstChild;
   contentArea.innerHTML = pui.cloud.views[view];
+  var firstBox = contentArea.getElementsByTagName("input")[0];
+  if (firstBox != null && (firstBox.type === "text" || firstBox.type === "password")) {
+    firstBox.focus();
+  }
 }

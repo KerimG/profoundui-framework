@@ -6,11 +6,11 @@ pui.cloud["forgot password screen"]["show"] = function() {
 }
 
 pui.cloud["forgot password screen"]["haveCode"] = function() {
-  alert("to do")
+  pui.cloud["reset password screen"].show();
 }
 
 pui.cloud["forgot password screen"]["startOver"] = function() {
-  alert("to do")
+  pui.cloud["signin screen"].show();
 }
 
 pui.cloud["forgot password screen"]["next"] = function() {

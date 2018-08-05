@@ -5,7 +5,7 @@ pui.cloud.publish = function() {
   screenMask.msg = "Sharing workspace...";
   screenMask.show();
   ajaxJSON({
-    "url": "/share_workspace",
+    "url": "/cloud/share_workspace",
     "method": "post",
     "params": {
       "workspace_id": pui.cloud["workspace_id"],

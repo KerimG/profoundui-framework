@@ -3,16 +3,47 @@ pui.cloud["password screen"] = {};
 
 pui.cloud["password screen"]["show"] = function() {
   pui.cloud.show("password");
+  getObj("_cloud_first_name").textContent = pui.cloud["signin screen"].first_name;
 }
 
 pui.cloud["password screen"]["startOver"] = function() {
-  alert("to do")
+  pui.cloud["signin screen"].show();
 }
 
 pui.cloud["password screen"]["forgotPassword"] = function() {
-  alert("to do")
+  pui.cloud["forgot password screen"].show();
 }
 
 pui.cloud["password screen"]["next"] = function() {
-  alert("to do")
+  var profile = pui.cloud["signin screen"].profile_name;
+  var password = get("_cloud_password").toLowerCase();
+  var passwordEl = getObj("_cloud_password");
+  var msgEl = getObj("_cloud_password_msg");
+  if (!password) {
+    msgEl.innerHTML = "<br/>Enter password.";
+    passwordEl.focus();
+    return;
+  }
+  screenMask.msg = "Logging you in";
+  screenMask.show();
+  ajaxJSON({
+    "url": "/cloud/login",
+    "method": "post",
+    "params": {
+      "profile": profile,
+      "pwd": password
+    },
+    "async": true,
+    "handler": function (response, err) {
+      screenMask.hide();
+      if (!response["success"]) {
+        msgEl.innerHTML = "<br/>" + response["message"];
+        passwordEl.value = "";
+        passwordEl.focus();
+        return;
+      }
+      localStorage.setItem("pui-cloud-token", response["token"]);
+      pui.cloud["publish screen"].show();
+    }
+  });
 }
