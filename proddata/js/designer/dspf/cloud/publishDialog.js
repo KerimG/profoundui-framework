@@ -30,15 +30,14 @@ pui.cloud.publishDialog = function() {
     "listeners": 
 	  {
   		"show": function() {
-        setTimeout(function() {
-          var user = null;  // to do -- retreieve currently signed in user
-          if (user) {
-            pui.cloud["publish screen"]["show"]();
+        pui.cloud.verifyToken(function(info) {
+          if (info.success) {
+            pui.cloud["publish screen"].show();
           }
           else {
-            pui.cloud["signin screen"]["show"]();          
+            pui.cloud["signin screen"].show();          
           }
-        }, 10);
+        });
 		  },
       "beforeclose": function() 
 		  {
