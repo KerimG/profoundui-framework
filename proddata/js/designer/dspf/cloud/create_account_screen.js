@@ -21,14 +21,17 @@ pui.cloud["create account screen"]["next"] = function() {
   var email = get("_cloud_email").toLowerCase();
   var emailEl = getObj("_cloud_email");
   var emailMsgEl = getObj("_cloud_email_msg");
-  var password1 = get("_cloud_password1").toLowerCase();
+  var password1 = get("_cloud_password1");
   var passwordEl1 = getObj("_cloud_password1");
-  var password2 = get("_cloud_password2").toLowerCase();
+  var password2 = get("_cloud_password2");
   var passwordEl2 = getObj("_cloud_password2");
   var passwordMsgEl = getObj("_cloud_password_msg");
   var company = get("_cloud_company");
   var phone = get("_cloud_phone");
-  var details = get("_cloud_project_details");  
+  var details = get("_cloud_project_details");
+  var workspace_id = pui.cloud["workspace_id"];
+  
+  if (!workspace_id) workspace_id = "";
   
   nameMsgEl.innerHTML = "";
   profileMsgEl.innerHTML = "";
@@ -53,7 +56,7 @@ pui.cloud["create account screen"]["next"] = function() {
     send = false;
   }
   else if (password1 != password2) {
-    passwordMsgEl.innerHTML = "<br/>Password do not match.";
+    passwordMsgEl.innerHTML = "<br/>Passwords do not match.";
     passwordEl1.focus();
     send = false;
   }
@@ -110,7 +113,8 @@ pui.cloud["create account screen"]["next"] = function() {
       "pwd": password1,
       "company": company,
       "phone": phone,
-      "details": details
+      "details": details,
+      "workspace_id": workspace_id
     },
     "async": true,
     "handler": function (response, err) {
@@ -132,6 +136,10 @@ pui.cloud["create account screen"]["next"] = function() {
       }
       localStorage.setItem("pui-cloud-token", response["token"]);
       pui.cloud["publish screen"].show();
+    },
+    "onfail": function() {
+      pui.alert("An unexpected error ocurred.");
+      screenMask.hide();
     }
   });
 

@@ -44,6 +44,10 @@ pui.cloud["password screen"]["next"] = function() {
       }
       localStorage.setItem("pui-cloud-token", response["token"]);
       pui.cloud["publish screen"].show();
+    },
+    "onfail": function() {
+      pui.alert("An unexpected error ocurred.");
+      screenMask.hide();
     }
   });
 }

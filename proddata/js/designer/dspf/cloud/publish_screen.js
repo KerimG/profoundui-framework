@@ -22,6 +22,10 @@ pui.cloud["publish screen"]["signout"] = function() {
       screenMask.hide();
       localStorage.setItem("pui-cloud-token", "");
       pui.cloud["signin screen"].show();
+    },
+    "onfail": function() {
+      pui.alert("An unexpected error ocurred.");
+      screenMask.hide();
     }
   });
 

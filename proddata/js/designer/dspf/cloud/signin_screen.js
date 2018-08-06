@@ -40,7 +40,13 @@ pui.cloud["signin screen"]["next"] = function() {
       }
       pui.cloud["signin screen"].profile_name = response["profile_name"];
       pui.cloud["signin screen"].first_name = response["first_name"];
+      pui.cloud["signin screen"].email_used = response["email_used"];
+      pui.cloud["signin screen"].entered_profile = profile;
       pui.cloud["password screen"].show();
+    },
+    "onfail": function() {
+      pui.alert("An unexpected error ocurred.");
+      screenMask.hide();
     }
   });
 }
