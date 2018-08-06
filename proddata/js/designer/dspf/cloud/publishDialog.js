@@ -27,8 +27,7 @@ pui.cloud.publishDialog = function() {
     "modal": true,
     "maximized": (vwidth < wwidth || vheight < wheight) ? true : false,
     "constrain": true,
-    "listeners": 
-	  {
+    "listeners": {
   		"show": function() {
         pui.cloud.verifyToken(function(info) {
           if (info.success) {
@@ -39,17 +38,28 @@ pui.cloud.publishDialog = function() {
           }
         });
 		  },
-      "beforeclose": function() 
-		  {
+      "beforeclose": function() {
     	 toolbar.designer.disabled = false;
     	},
-    	"render": function(win)
-    	{
-
+    	"render": function(win)	{
+    	  new Ext.KeyMap(win.getEl(), {
+    	    "key": Ext.EventObject.ENTER,
+    	    "handler": function() {
+            var contentArea = Ext.get(pui.cloud.currentContentAreaId).dom.firstChild.firstChild;
+            var els = contentArea.getElementsByTagName("input");
+            for (var i = 0; i < els.length; i++) {
+              var el = els[i];
+              if (el.type === "button") {
+                el.click();
+                return;
+              }
+            }
+          },
+    	    "stopEvent": true
+    	  }, "keypress");
     	}
     },
-    "buttons": [
-    ],
+    "buttons": [],
     "items": [
       winItems
     ]
