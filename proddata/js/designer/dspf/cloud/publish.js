@@ -1,5 +1,7 @@
 
-pui.cloud.publish = function() {
+pui.cloud.publish = function(packageInfo) {
+  
+  if (!packageInfo) packageInfo = {};
 
   pui.cloud.updateSettings();
   screenMask.msg = "Sharing workspace...";
@@ -9,7 +11,8 @@ pui.cloud.publish = function() {
     "method": "post",
     "params": {
       "workspace_id": pui.cloud["workspace_id"],
-      "settings": JSON.stringify(pui.cloud["workspace_settings"], null, 2)
+      "settings": JSON.stringify(pui.cloud["workspace_settings"], null, 2),
+      "package_info": JSON.stringify(packageInfo, null, 2)
     },
     "async": true,
     "handler": function (response, err) {
@@ -23,7 +26,7 @@ pui.cloud.publish = function() {
         history.pushState({ "workspace_id": pui.cloud["workspace_id"], "share_url": shareurl }, document.title, "/" + shareurl);
         // is replaceState() a better choice here?
       }
-      setTimeout(function() { pui.alert("Workspace shared as " + document.documentURI); }, 100);
+      pui.cloud["published screen"].show();
     }         
   });
  

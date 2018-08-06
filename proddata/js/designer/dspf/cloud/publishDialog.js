@@ -12,8 +12,8 @@ pui.cloud.publishDialog = function() {
     	"html": ""
 	}];
 
-  var wwidth = 500;
-  var wheight = 300;
+  var wwidth = 525;
+  var wheight = 425;
   var vwidth = pui.ide.viewPort.getWidth();
   var vheight = pui.ide.viewPort.getHeight();
 
@@ -39,7 +39,7 @@ pui.cloud.publishDialog = function() {
         });
 		  },
       "beforeclose": function() {
-    	 toolbar.designer.disabled = false;
+    	  if (toolbar && toolbar.designer) toolbar.designer.disabled = false;
     	},
     	"render": function(win)	{
     	  new Ext.KeyMap(win.getEl(), {
@@ -65,7 +65,7 @@ pui.cloud.publishDialog = function() {
     ]
   });
 
-  toolbar.designer.disabled = true;
+  if (toolbar && toolbar.designer) toolbar.designer.disabled = true;
   pui.cloud.savedPublishDialogReference = win;
   win.show();
 }
