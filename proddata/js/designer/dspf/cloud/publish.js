@@ -1,10 +1,10 @@
 
-pui.cloud.publish = function(packageInfo) {
+pui.cloud.publish = function(wsInfo) {
 
   var token = localStorage["pui-cloud-token"];
   if (typeof token !== "string") token = "";
   
-  if (!packageInfo) packageInfo = {};
+  if (!wsInfo) wsInfo = {};
 
   pui.cloud.updateSettings();
   screenMask.msg = "Sharing workspace...";
@@ -15,10 +15,11 @@ pui.cloud.publish = function(packageInfo) {
     "params": {
       "workspace_id": pui.cloud["workspace_id"],
       "settings": JSON.stringify(pui.cloud["workspace_settings"], null, 2),
-      "package_info": JSON.stringify(packageInfo, null, 2),
+      "ws_info": JSON.stringify(wsInfo, null, 2),
       "token": token
     },
     "async": true,
+    "suppressAlert": true,
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
@@ -26,14 +27,14 @@ pui.cloud.publish = function(packageInfo) {
         return;
       }
       if (response["new"]) {
-        var shareurl = response["share_url"];
-        history.pushState({ "workspace_id": pui.cloud["workspace_id"], "share_url": shareurl }, document.title, "/" + shareurl);
+        var workspace_name = response["workspace_name"];
+        history.pushState({ "workspace_id": pui.cloud["workspace_id"], "workspace_name": workspace_name }, document.title, "/" + workspace_name);
         // is replaceState() a better choice here?
       }
       pui.cloud["published screen"].show();
     },
     "onfail": function() {
-      pui.alert("An unexpected error ocurred.");
+      pui.alert("An unexpected error ocurred. Check your connection and try again.");
       screenMask.hide();
     }
   });

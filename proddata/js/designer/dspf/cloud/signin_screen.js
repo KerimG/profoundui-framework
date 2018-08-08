@@ -3,6 +3,9 @@ pui.cloud["signin screen"] = {};
 
 pui.cloud["signin screen"]["show"] = function() {
   pui.cloud.show("signin");
+  if (pui.cloud.htmlDialogType === "signin") {
+    getObj("_cloud_skip").style.display = "none";
+  }
 }
 
 pui.cloud["signin screen"]["createAccount"] = function() {
@@ -31,6 +34,7 @@ pui.cloud["signin screen"]["next"] = function() {
       "profile": profile
     },
     "async": true,
+    "suppressAlert": true,
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
@@ -45,7 +49,7 @@ pui.cloud["signin screen"]["next"] = function() {
       pui.cloud["password screen"].show();
     },
     "onfail": function() {
-      pui.alert("An unexpected error ocurred.");
+      pui.alert("An unexpected error ocurred. Check your connection and try again.");
       screenMask.hide();
     }
   });

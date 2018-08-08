@@ -83,6 +83,7 @@ pui.cloud["reset password screen"]["next"] = function() {
       "pwd": password1
     },
     "async": true,
+    "suppressAlert": true,
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
@@ -95,7 +96,7 @@ pui.cloud["reset password screen"]["next"] = function() {
       }, 0);
     },
     "onfail": function() {
-      pui.alert("An unexpected error ocurred.");
+      pui.alert("An unexpected error ocurred. Check your connection and try again.");
       screenMask.hide();
     }
   });

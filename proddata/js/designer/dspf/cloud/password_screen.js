@@ -34,6 +34,7 @@ pui.cloud["password screen"]["next"] = function() {
       "pwd": password
     },
     "async": true,
+    "suppressAlert": true,
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
@@ -43,10 +44,17 @@ pui.cloud["password screen"]["next"] = function() {
         return;
       }
       localStorage.setItem("pui-cloud-token", response["token"]);
-      pui.cloud["publish screen"].show();
+      pui.cloud.showUser(response);
+      if (pui.cloud.htmlDialogType === "publish") {
+        pui.cloud["publish screen"].show();
+      }
+      else {
+        var win = pui.cloud.savedHtmlDialogReference;
+        win.close();
+      }
     },
     "onfail": function() {
-      pui.alert("An unexpected error ocurred.");
+      pui.alert("An unexpected error ocurred. Check your connection and try again.");
       screenMask.hide();
     }
   });

@@ -87,6 +87,7 @@ pui.cloud["create account screen"]["next"] = function() {
         profileMsgEl.innerHTML = "<br/>Profile name contains invalid characters.";
         profileEl.focus();
         send = false;
+        break;
       }
     }
   }
@@ -117,6 +118,7 @@ pui.cloud["create account screen"]["next"] = function() {
       "workspace_id": workspace_id
     },
     "async": true,
+    "suppressAlert": true,
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
@@ -135,10 +137,17 @@ pui.cloud["create account screen"]["next"] = function() {
         return;
       }
       localStorage.setItem("pui-cloud-token", response["token"]);
-      pui.cloud["publish screen"].show();
+      pui.cloud.showUser(response);
+      if (pui.cloud.htmlDialogType === "publish") {
+        pui.cloud["publish screen"].show();
+      }
+      else {
+        var win = pui.cloud.savedHtmlDialogReference;
+        win.close();
+      }
     },
     "onfail": function() {
-      pui.alert("An unexpected error ocurred.");
+      pui.alert("An unexpected error ocurred. Check your connection and try again.");
       screenMask.hide();
     }
   });
