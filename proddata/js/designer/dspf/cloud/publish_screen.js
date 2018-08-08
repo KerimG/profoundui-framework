@@ -9,6 +9,7 @@ pui.cloud["publish screen"]["protect"] = function() {
   var span = getObj("_cloud_password_span");
   if (span.style.display === "none") {
     span.style.display = "";
+    getObj("_cloud_password").focus();
   }
   else {
     span.style.display = "none";
@@ -54,10 +55,10 @@ pui.cloud["publish screen"]["publish"] = function() {
     password = "";
   }
   
-  //if (!view && !open !modify && !run) {
-  //  permissionsMsgEl.innerHTML = "<br/>You must select at least one checkbox.";
-  //  go = false;
-  //}
+  if (modify && !open) {
+    permissionsMsgEl.innerHTML = "<br/>You cannot modify workspaces without first opening them.";
+    go = false;
+  }
   
   if (!name) {
     nameMsgEl.innerHTML = "<br/>Enter workspace name.";
