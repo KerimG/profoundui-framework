@@ -37,7 +37,6 @@ pui.cloud["publish screen"]["publish"] = function() {
   var passwordMsgEl = getObj("_cloud_password_msg");
   var description = get("_cloud_description");
   var keywords = get("_cloud_keywords");
-  var token = localStorage["pui-cloud-token"];
   var go = true;
 
   nameMsgEl.innerHTML = "";
@@ -86,6 +85,8 @@ pui.cloud["publish screen"]["publish"] = function() {
   }
   
   if (!go) return;
+
+  pui.cloud["publish screen"].name = name;
   
   pui.cloud.publish({
     "name": name,
@@ -96,8 +97,7 @@ pui.cloud["publish screen"]["publish"] = function() {
     "protect": protect,
     "pwd": password,
     "description": description,
-    "keywords": keywords,
-    "token": token
+    "keywords": keywords
   });
 
 }

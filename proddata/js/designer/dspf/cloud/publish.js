@@ -28,7 +28,14 @@ pui.cloud.publish = function(wsInfo) {
       }
       if (response["new"]) {
         var workspace_name = response["workspace_name"];
-        history.pushState({ "workspace_id": pui.cloud["workspace_id"], "workspace_name": workspace_name }, document.title, "/" + workspace_name);  // is replaceState() a better choice here?
+        pui.cloud["publish screen"].name = workspace_name;
+        var user = pui.cloud.user;
+        var path = "/";
+        if (user) {
+          path += user + "/";          
+        }
+        path += workspace_name;
+        history.pushState({ "workspace_id": pui.cloud["workspace_id"], "workspace_name": workspace_name }, document.title, path);  // is replaceState() a better choice here?
         pui.cloud["new_workspace"] = false;
         pui.ide.refreshRibbon();
       }
