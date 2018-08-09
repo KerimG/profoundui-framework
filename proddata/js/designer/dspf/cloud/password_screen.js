@@ -52,6 +52,7 @@ pui.cloud["password screen"]["next"] = function() {
         var win = pui.cloud.savedHtmlDialogReference;
         win.close();
       }
+      pui.ide.refreshRibbon();
     },
     "onfail": function() {
       pui.alert("An unexpected error ocurred. Check your connection and try again.");
