@@ -24,7 +24,7 @@ pui.cloud["publish screen"].show = function() {
 
 pui.cloud["publish screen"]["protect"] = function() {
   var span = getObj("_cloud_password_span");
-  if (span.style.display === "none") {
+  if (getObj("_cloud_protect").checked) {
     span.style.display = "";
     getObj("_cloud_password").focus();
   }
