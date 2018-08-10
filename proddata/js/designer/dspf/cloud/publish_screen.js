@@ -1,8 +1,25 @@
 
 pui.cloud["publish screen"] = {};
 
-pui.cloud["publish screen"]["show"] = function() {
-  pui.cloud.show("publish");
+pui.cloud["publish screen"].show = function() {
+  
+  if (!pui.cloud.ws.name || !pui.cloud.ws["owner"] || pui.cloud.user === pui.cloud.ws["owner"]) {
+    pui.cloud.show("publish");
+    var ws = pui.cloud.ws;
+    if (ws["owner"]) getObj("_cloud_workspace_name").value = ws["name"];
+    getObj("_cloud_view").checked = ws["view"];
+    getObj("_cloud_open").checked = ws["open"];
+    getObj("_cloud_modify").checked = ws["modify"];
+    getObj("_cloud_run").checked = ws["run"];
+    getObj("_cloud_protect").checked = ws["protect"];
+    getObj("_cloud_description").value = ws["description"];
+    getObj("_cloud_keywords").value = ws["keywords"];
+  }
+  else {
+    // Immediately skip to publish step because the user is updating another owner's workspace
+    pui.cloud.publish({ name: pui.cloud.ws.name });
+  }
+
 }
 
 pui.cloud["publish screen"]["protect"] = function() {
@@ -34,6 +51,7 @@ pui.cloud["publish screen"]["publish"] = function() {
   var protect = getObj("_cloud_protect").checked;
   var password = get("_cloud_password");
   var passwordEl = getObj("_cloud_password");
+  var passwordVisible = (getObj("_cloud_password_span").style.display !== "none");
   var passwordMsgEl = getObj("_cloud_password_msg");
   var description = get("_cloud_description");
   var keywords = get("_cloud_keywords");
@@ -44,7 +62,7 @@ pui.cloud["publish screen"]["publish"] = function() {
   passwordMsgEl.innerHTML = "";
 
   if (protect) {
-    if (!password) {
+    if (!password && passwordVisible) {
       passwordMsgEl.innerHTML = "<br/>Enter password or unselect password protect option.";
       passwordEl.focus();
       go = false;
@@ -53,9 +71,13 @@ pui.cloud["publish screen"]["publish"] = function() {
   else {
     password = "";
   }
-  
+  if (!passwordVisible) {
+    password = "";
+  }
+
   if (modify && !open) {
     permissionsMsgEl.innerHTML = "<br/>You cannot modify workspaces without first opening them.";
+    getObj("_cloud_open").focus();
     go = false;
   }
   

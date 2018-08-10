@@ -43,7 +43,7 @@ pui.cloud["password screen"]["next"] = function() {
         passwordEl.focus();
         return;
       }
-      localStorage.setItem("pui-cloud-token", response["token"]);
+      pui["setCookie"]("pui-cloud-token", response["token"], 366, "/");
       pui.cloud.showUser(response);
       if (pui.cloud.htmlDialogType === "publish") {
         pui.cloud["publish screen"].show();

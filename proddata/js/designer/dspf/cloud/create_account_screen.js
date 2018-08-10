@@ -29,7 +29,7 @@ pui.cloud["create account screen"]["next"] = function() {
   var company = get("_cloud_company");
   var phone = get("_cloud_phone");
   var details = get("_cloud_project_details");
-  var workspace_id = pui.cloud["workspace_id"];
+  var workspace_id = pui.cloud.ws.id;
   
   if (!workspace_id) workspace_id = "";
   
@@ -136,7 +136,7 @@ pui.cloud["create account screen"]["next"] = function() {
         }
         return;
       }
-      localStorage.setItem("pui-cloud-token", response["token"]);
+      pui["setCookie"]("pui-cloud-token", response["token"], 366, "/");
       pui.cloud.showUser(response);
       if (pui.cloud.htmlDialogType === "publish") {
         pui.cloud["publish screen"].show();

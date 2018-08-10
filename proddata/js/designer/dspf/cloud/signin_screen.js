@@ -3,7 +3,10 @@ pui.cloud["signin screen"] = {};
 
 pui.cloud["signin screen"]["show"] = function() {
   pui.cloud.show("signin");
-  if (pui.cloud.htmlDialogType === "signin") {
+  var hideSkip = false;
+  if (pui.cloud.htmlDialogType === "signin") hideSkip = true;
+  if (pui.cloud.ws["owner"]) hideSkip = true;
+  if (hideSkip) {
     getObj("_cloud_skip").style.display = "none";
   }
 }
