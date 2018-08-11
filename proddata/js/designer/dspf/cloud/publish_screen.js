@@ -11,6 +11,7 @@ pui.cloud["publish screen"].show = function() {
     getObj("_cloud_open").checked = ws["open"];
     getObj("_cloud_modify").checked = ws["modify"];
     getObj("_cloud_run").checked = ws["run"];
+    getObj("_cloud_comment").checked = ws["comment"];
     getObj("_cloud_protect").checked = ws["protect"];
     getObj("_cloud_description").value = ws["description"];
     getObj("_cloud_keywords").value = ws["keywords"];
@@ -47,6 +48,7 @@ pui.cloud["publish screen"]["publish"] = function() {
   var open = getObj("_cloud_open").checked;
   var modify = getObj("_cloud_modify").checked;  
   var run = getObj("_cloud_run").checked;
+  var comment = getObj("_cloud_comment").checked;
   var permissionsMsgEl = getObj("_cloud_permissions_msg");
   var protect = getObj("_cloud_protect").checked;
   var password = get("_cloud_password");
@@ -116,6 +118,7 @@ pui.cloud["publish screen"]["publish"] = function() {
     "open": open,
     "modify": modify,
     "run": run,
+    "comment": comment,
     "protect": protect,
     "pwd": password,
     "description": description,
