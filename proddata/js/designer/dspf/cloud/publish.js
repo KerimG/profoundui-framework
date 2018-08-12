@@ -51,6 +51,8 @@ pui.cloud.publish = function(wsInfo) {
         if (!pui.cloud.ws["owner"]) pui.cloud.ws["owner"] = pui.cloud.user;
       }      
       pui.ide.refreshRibbon();
+      pui.cloud.ws["socialData"] = response["socialData"];
+      Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
       pui.cloud["published screen"].show();
       getObj("_cloud_publish_word1").innerHTML = wording;
       getObj("_cloud_publish_word2").innerHTML = wording;

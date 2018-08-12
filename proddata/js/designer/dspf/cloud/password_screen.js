@@ -24,6 +24,8 @@ pui.cloud["password screen"]["next"] = function() {
     passwordEl.focus();
     return;
   }
+  var workspace_id = pui.cloud.ws.id;
+  if (!workspace_id) workspace_id = "";
   screenMask.msg = "Logging you in";
   screenMask.show();
   ajaxJSON({
@@ -31,7 +33,8 @@ pui.cloud["password screen"]["next"] = function() {
     "method": "post",
     "params": {
       "profile": profile,
-      "pwd": password
+      "pwd": password,
+      "workspace_id": workspace_id
     },
     "async": true,
     "suppressAlert": true,
@@ -53,6 +56,8 @@ pui.cloud["password screen"]["next"] = function() {
         win.close();
       }
       pui.ide.refreshRibbon();
+      pui.cloud.ws["socialData"] = response["socialData"];
+      Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
     },
     "onfail": function() {
       pui.alert("An unexpected error ocurred. Check your connection and try again.");
