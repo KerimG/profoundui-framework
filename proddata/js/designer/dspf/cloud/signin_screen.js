@@ -46,6 +46,7 @@ pui.cloud["signin screen"]["next"] = function() {
         return;
       }
       pui.cloud["signin screen"].profile_name = response["profile_name"];
+      pui.cloud["signin screen"].display_name = response["display_name"];
       pui.cloud["signin screen"].first_name = response["first_name"];
       pui.cloud["signin screen"].email_used = response["email_used"];
       pui.cloud["signin screen"].entered_profile = profile;

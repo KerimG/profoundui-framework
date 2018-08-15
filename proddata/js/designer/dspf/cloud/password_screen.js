@@ -3,7 +3,8 @@ pui.cloud["password screen"] = {};
 
 pui.cloud["password screen"]["show"] = function() {
   pui.cloud.show("password");
-  getObj("_cloud_first_name").textContent = pui.cloud["signin screen"].first_name;
+  //getObj("_cloud_first_name").textContent = pui.cloud["signin screen"].first_name;
+  getObj("_cloud_display_name").textContent = pui.cloud["signin screen"].display_name;
 }
 
 pui.cloud["password screen"]["startOver"] = function() {

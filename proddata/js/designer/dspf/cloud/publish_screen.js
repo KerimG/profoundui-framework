@@ -20,7 +20,7 @@ pui.cloud["publish screen"].show = function() {
   }
   else {
     // Immediately skip to publish step because the user is updating another owner's workspace
-    pui.cloud.publish({ name: pui.cloud.ws.name });
+    pui.cloud.publish({ url_path: pui.cloud.ws.url_path, name: pui.cloud.ws.name });
   }
 
 }
@@ -43,7 +43,8 @@ pui.cloud["publish screen"]["signout"] = function() {
 }
 
 pui.cloud["publish screen"]["publish"] = function() {
-  var name = get("_cloud_workspace_name").toLowerCase();
+  var name = get("_cloud_workspace_name");
+  var url_path = name.toLowerCase().replace(/ /g, "-");
   var nameEl = getObj("_cloud_workspace_name");
   var nameMsgEl = getObj("_cloud_workspace_name_msg");
   var view = getObj("_cloud_view").checked;
@@ -90,15 +91,10 @@ pui.cloud["publish screen"]["publish"] = function() {
     nameEl.focus();
     go = false;
   }
-  else if (name.includes(" ")) {
-    nameMsgEl.innerHTML = "<br/>Workspace name cannot contain spaces.";
-    nameEl.focus();
-    go = false;
-  }
   else {
     for (var i = 0; i < name.length; i++) {
       var ch = name.substr(i, 1);
-      if ((ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_") || (ch === "-")) {
+      if ((ch >= "A" && ch <= "Z") || (ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_") || (ch === "-") || (ch === " ")) {
         // valid character
       }
       else {
@@ -113,9 +109,11 @@ pui.cloud["publish screen"]["publish"] = function() {
   if (!go) return;
 
   pui.cloud["publish screen"].name = name;
+  pui.cloud["publish screen"].url_path = url_path;
   
   pui.cloud.publish({
     "name": name,
+    "url_path": url_path,
     "view": view,
     "open": open,
     "modify": modify,
