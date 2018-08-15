@@ -23,7 +23,12 @@ pui.cloud.publish = function(wsInfo) {
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
-        pui.alert(response["message"]);
+        if (response["elem"] && getObj(response["elem"])) {
+          getObj(response["elem"]).innerHTML = "<br/>" + response["message"];
+        }
+        else {
+          pui.alert(response["message"]);
+        }
         return;
       }
       pui.cloud["publish screen"].name = pui.cloud.ws.name;
@@ -53,6 +58,7 @@ pui.cloud.publish = function(wsInfo) {
       pui.ide.refreshRibbon();
       pui.cloud.ws["socialData"] = response["socialData"];
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
+      pui.social.getWorkspaceInfo();
       pui.cloud["published screen"].show();
       getObj("_cloud_publish_word1").innerHTML = wording;
       getObj("_cloud_publish_word2").innerHTML = wording;

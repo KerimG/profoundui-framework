@@ -58,6 +58,7 @@ pui.cloud["password screen"]["next"] = function() {
       pui.ide.refreshRibbon();
       pui.cloud.ws["socialData"] = response["socialData"];
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
+      pui.social.getWorkspaceInfo();
     },
     "onfail": function() {
       pui.alert("An unexpected error ocurred. Check your connection and try again.");
