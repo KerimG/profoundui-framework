@@ -23,8 +23,8 @@ pui.cloud.publish = function(wsInfo) {
     "handler": function (response, err) {
       screenMask.hide();
       if (!response["success"]) {
-        if (response["elem"] && getObj(response["elem"])) {
-          getObj(response["elem"]).innerHTML = "<br/>" + response["message"];
+        if (response["messageEl"] && getObj(response["messageEl"])) {
+          getObj(response["messageEl"]).innerHTML = "<br/>" + response["message"];
         }
         else {
           pui.alert(response["message"]);

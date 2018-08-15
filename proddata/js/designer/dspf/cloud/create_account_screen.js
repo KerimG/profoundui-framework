@@ -16,6 +16,7 @@ pui.cloud["create account screen"]["next"] = function() {
   var lastEl = getObj("_cloud_last_name");
   var nameMsgEl = getObj("_cloud_name_msg");
   var profile = get("_cloud_profile").toLowerCase();
+  var displayName = get("_cloud_profile");
   var profileEl = getObj("_cloud_profile");
   var profileMsgEl = getObj("_cloud_profile_msg");
   var email = get("_cloud_email").toLowerCase();
@@ -110,6 +111,7 @@ pui.cloud["create account screen"]["next"] = function() {
       "first": first,
       "last": last,
       "profile": profile,
+      "display_name": displayName,
       "email": email,
       "pwd": password1,
       "company": company,
