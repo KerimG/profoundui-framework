@@ -122,7 +122,8 @@ pui.cloud["publish screen"]["publish"] = function() {
     "protect": protect,
     "pwd": password,
     "description": description,
-    "keywords": keywords
+    "keywords": keywords,
+    "fromPublishScreen": true
   });
 
 }

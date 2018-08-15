@@ -29,6 +29,10 @@ pui.cloud.publish = function(wsInfo) {
         else {
           pui.alert(response["message"]);
         }
+        if (!wsInfo["fromPublishScreen"]) {
+          var win = pui.cloud.savedHtmlDialogReference;
+          win.close();
+        }
         return;
       }
       pui.cloud["publish screen"].name = pui.cloud.ws.name;
