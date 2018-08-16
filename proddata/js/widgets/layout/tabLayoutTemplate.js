@@ -47,7 +47,10 @@ pui.layout.template.tabTemplate = function(parms) {
       pui.layout.adoptNamedProperty("font weight"),
       // Note: the layout doesn't use text-align, which is useless with tabs; tabs are only as wide as the text.
       pui.layout.adoptNamedProperty("text decoration"),
-      pui.layout.adoptNamedProperty("text transform")
+      pui.layout.adoptNamedProperty("text transform"),
+      { name: "lazy load", choices: ["true", "false"],
+        help: pui.layout.helpTextLayoutProperties("false","When true, render contents of tab after the user clicks a tab instead of rendering everything immediately (which can be slower).",[],"") },
+      { name: "onlazyload", type: "js", help: pui.layout.helpTextLayoutProperties("blank","Initiates a client-side script after a container is rendered lazily. (See lazy load property.)",[])}
     ]);
   }
 
