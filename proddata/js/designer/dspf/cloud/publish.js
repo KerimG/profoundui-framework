@@ -7,7 +7,7 @@ pui.cloud.publish = function(wsInfo) {
   if (!wsInfo) wsInfo = {};
 
   pui.cloud.updateSettings();
-  screenMask.msg = "Sharing workspace...";
+  screenMask.msg = "Sharing workspace";
   screenMask.show();
   ajaxJSON({
     "url": "/cloud/share_workspace",
