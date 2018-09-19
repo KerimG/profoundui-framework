@@ -141,7 +141,7 @@ pui.cloud["create account screen"]["next"] = function() {
       pui["setCookie"]("pui-cloud-token", response["token"], 366, "/");
       pui.cloud.showUser(response);
       pui.social.getWorkspaceInfo();
-      if (pui.cloud.htmlDialogType === "publish") {
+      if (pui.cloud.htmlDialogType === "publish" || pui.cloud.htmlDialogType === "fork") {
         pui.cloud["publish screen"].show();
       }
       else {

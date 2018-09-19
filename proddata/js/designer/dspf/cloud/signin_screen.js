@@ -5,6 +5,7 @@ pui.cloud["signin screen"]["show"] = function() {
   pui.cloud.show("signin");
   var hideSkip = false;
   if (pui.cloud.htmlDialogType === "signin") hideSkip = true;
+  if (pui.cloud.htmlDialogType === "fork") hideSkip = true;
   if (pui.cloud.ws["owner"]) hideSkip = true;
   if (hideSkip) {
     getObj("_cloud_skip").style.display = "none";

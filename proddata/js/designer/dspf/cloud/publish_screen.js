@@ -3,20 +3,28 @@ pui.cloud["publish screen"] = {};
 
 pui.cloud["publish screen"].show = function() {
   
-  if (!pui.cloud.ws.name || !pui.cloud.ws["owner"] || pui.cloud.user === pui.cloud.ws["owner"]) {
+  var fork = (pui.cloud.htmlDialogType === "fork");
+  
+  if (!pui.cloud.ws.name || !pui.cloud.ws["owner"] || pui.cloud.user === pui.cloud.ws["owner"] || fork) {
     pui.cloud.show("publish");
     var ws = pui.cloud.ws;
-    if (ws["owner"]) getObj("_cloud_workspace_name").value = ws["name"];
-    getObj("_cloud_view").checked = ws["view"];
-    getObj("_cloud_open").checked = ws["open"];
-    var modify = ws["modify"];
-    if (ws["new"]) modify = false;  // default to modify off on new workspaces
-    getObj("_cloud_modify").checked = modify;
-    getObj("_cloud_run").checked = ws["run"];
-    getObj("_cloud_comment").checked = ws["comment"];
-    getObj("_cloud_protect").checked = ws["protect"];
-    getObj("_cloud_description").value = ws["description"];
-    getObj("_cloud_keywords").value = ws["keywords"];
+    if (ws["owner"] && !fork) getObj("_cloud_workspace_name").value = ws["name"];
+    if (fork) {
+      getObj("_cloud_workspace_name").placeholder = "New name";
+      getObj("_cloud_publish_button").value = "Fork";
+    }
+    if (!fork) {  // leave screen default values when forking
+      getObj("_cloud_view").checked = ws["view"];
+      getObj("_cloud_open").checked = ws["open"];
+      var modify = ws["modify"];
+      if (ws["new"]) modify = false;  // default to modify off on new workspaces
+      getObj("_cloud_modify").checked = modify;
+      getObj("_cloud_run").checked = ws["run"];
+      getObj("_cloud_comment").checked = ws["comment"];
+      getObj("_cloud_protect").checked = ws["protect"];
+      getObj("_cloud_description").value = ws["description"];
+      getObj("_cloud_keywords").value = ws["keywords"];
+    }
   }
   else {
     // Immediately skip to publish step because the user is updating another owner's workspace
@@ -123,7 +131,8 @@ pui.cloud["publish screen"]["publish"] = function() {
     "pwd": password,
     "description": description,
     "keywords": keywords,
-    "fromPublishScreen": true
+    "fromPublishScreen": true,
+    "fork": (pui.cloud.htmlDialogType === "fork")
   });
 
 }

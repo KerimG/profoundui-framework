@@ -56,18 +56,50 @@ pui.cloud.publish = function(wsInfo) {
       }
       var wording = "published";
       if (!pui.cloud.ws["new"]) wording = "updated";
+      if (wsInfo["fork"]) wording = "forked";
       pui.cloud.ws["new"] = false;
       if (wsInfo.name) {
         for (key in wsInfo) {
           if (key === "pwd") continue;
+          if (key === "fork") continue;
+          if (key === "fromPublishScreen") continue;
           pui.cloud.ws[key] = wsInfo[key];
         }
-        if (!pui.cloud.ws["owner"]) pui.cloud.ws["owner"] = pui.cloud.user;
-      }      
+        if (!pui.cloud.ws["owner"] || wsInfo["fork"]) pui.cloud.ws["owner"] = pui.cloud.user;
+      }
+      if (wsInfo["fork"]) {
+        pui.cloud.ws.id = response["workspace_id"];
+        pui.cloud.ws["SERVER_DIR"] = pui["PROFOUNDJS_DIR"] + pui["dirSeparator"] + "modules" + pui["dirSeparator"] + response["workspace_id"] + pui["dirSeparator"] + "files";
+        Ext.getCmp("fileTree").root.setId(pui.cloud.ws["SERVER_DIR"]);
+        Ext.getCmp("fileTree").loader.baseParams.workspace_id = response["workspace_id"];
+        Ext.getCmp("fileTree").root.reload();
+        var centerPanel = Ext.getCmp("centerPanel");
+        for (var i = 0; i < centerPanel.items.getCount(); i++) {
+          var tab = centerPanel.items.itemAt(i);          
+          var file;    
+          if (tab.fileTab) {
+            tab.root = pui.cloud.ws["SERVER_DIR"];
+          }
+          else {
+            file = tab.currentDisplay.ifsFile;
+            if (!file) continue;
+            var parts = file.split(pui["dirSeparator"]);
+            for (var j = 0; j < parts.length - 1; j++) {
+              if (parts[j] === "modules") {
+                parts[j + 1] = pui.cloud.ws.id;
+                break;
+              }
+            }
+            file = parts.join(pui["dirSeparator"]);
+            tab.currentDisplay.ifsFile = file;
+          }
+        }
+      }
       pui.ide.refreshRibbon();
       pui.cloud.ws["socialData"] = response["socialData"];
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
       pui.social.getWorkspaceInfo();
+      if (wsInfo["fork"]) pui.social.getComments();
       pui.cloud["published screen"].show();
       getObj("_cloud_publish_word1").innerHTML = wording;
       getObj("_cloud_publish_word2").innerHTML = wording;
