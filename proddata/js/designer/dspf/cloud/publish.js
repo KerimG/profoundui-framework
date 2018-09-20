@@ -8,6 +8,8 @@ pui.cloud.publish = function(wsInfo) {
 
   pui.cloud.updateSettings();
   screenMask.msg = "Sharing workspace";
+  if (pui.cloud.ws["new"]) screenMask.msg = "Updating workspace";
+  if (wsInfo["fork"]) screenMask.msg = "Forking workspace";
   screenMask.show();
   ajaxJSON({
     "url": "/cloud/share_workspace",
