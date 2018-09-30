@@ -73,7 +73,7 @@ pui.cloud.publish = function(wsInfo) {
         pui.cloud.ws.id = response["workspace_id"];
         pui.cloud.ws["SERVER_DIR"] = pui["PROFOUNDJS_DIR"] + pui["dirSeparator"] + "modules" + pui["dirSeparator"] + response["workspace_id"] + pui["dirSeparator"] + "files";
         Ext.getCmp("fileTree").root.setId(pui.cloud.ws["SERVER_DIR"]);
-        Ext.getCmp("fileTree").loader.baseParams.workspace_id = response["workspace_id"];
+        Ext.getCmp("fileTree").loader.baseParams["workspace_id"] = response["workspace_id"];
         Ext.getCmp("fileTree").root.reload();
         var centerPanel = Ext.getCmp("centerPanel");
         for (var i = 0; i < centerPanel.items.getCount(); i++) {
