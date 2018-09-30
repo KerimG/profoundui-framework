@@ -28,6 +28,7 @@ pui.cloud["create account screen"]["next"] = function() {
   var passwordEl2 = getObj("_cloud_password2");
   var passwordMsgEl = getObj("_cloud_password_msg");
   var company = get("_cloud_company");
+  var role = get("_cloud_role");
   var phone = get("_cloud_phone");
   var details = get("_cloud_project_details");
   var workspace_id = pui.cloud.ws.id;
@@ -115,7 +116,8 @@ pui.cloud["create account screen"]["next"] = function() {
       "email": email,
       "pwd": password1,
       "company": company,
-      "phone": phone,
+      "role": role,
+      "phone": phone,      
       "details": details,
       "workspace_id": workspace_id
     },
