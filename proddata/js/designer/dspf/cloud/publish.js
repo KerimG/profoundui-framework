@@ -6,7 +6,7 @@ pui.cloud.publish = function(wsInfo) {
   
   if (!wsInfo) wsInfo = {};
 
-  pui.cloud.updateSettings();
+  if (!wsInfo["fromTemplate"]) pui.cloud.updateSettings();
   screenMask.msg = "Sharing workspace";
   if (pui.cloud.ws["new"]) screenMask.msg = "Updating workspace";
   if (wsInfo["fork"]) screenMask.msg = "Forking workspace";
@@ -33,7 +33,7 @@ pui.cloud.publish = function(wsInfo) {
         }
         if (!wsInfo["fromPublishScreen"]) {
           var win = pui.cloud.savedHtmlDialogReference;
-          win.close();
+          if (win) win.close();
         }
         return;
       }
@@ -50,7 +50,7 @@ pui.cloud.publish = function(wsInfo) {
         pui.cloud["publish screen"].url_path = workspace_url_path;
         var user = pui.cloud.user;
         var path = "/";
-        if (user) {
+        if (user && !wsInfo["fromTemplate"]) {
           path += user + "/";          
         }
         path += workspace_url_path + "/";
@@ -102,9 +102,11 @@ pui.cloud.publish = function(wsInfo) {
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
       pui.social.getWorkspaceInfo();
       if (wsInfo["fork"]) pui.social.getComments();
-      pui.cloud["published screen"].show();
-      getObj("_cloud_publish_word1").innerHTML = wording;
-      getObj("_cloud_publish_word2").innerHTML = wording;
+      if (!wsInfo["fromTemplate"]) {
+        pui.cloud["published screen"].show();
+        getObj("_cloud_publish_word1").innerHTML = wording;
+        getObj("_cloud_publish_word2").innerHTML = wording;
+      }
     },
     "onfail": function() {
       pui.alert("An unexpected error ocurred. Check your connection and try again.");
