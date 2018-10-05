@@ -14,6 +14,9 @@ pui.cloud["publish screen"].show = function() {
       getObj("_cloud_publish_button").value = "Fork";
     }
     if (!fork) {  // leave screen default values when forking
+      if (ws["owner"]) {
+        getObj("_cloud_publish_button").value = "Update";
+      }
       getObj("_cloud_view").checked = ws["view"];
       getObj("_cloud_open").checked = ws["open"];
       var modify = ws["modify"];

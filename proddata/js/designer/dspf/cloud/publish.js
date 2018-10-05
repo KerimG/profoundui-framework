@@ -56,8 +56,8 @@ pui.cloud.publish = function(wsInfo) {
         path += workspace_url_path + "/";
         history.pushState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);  // is replaceState() a better choice here?
       }
-      var wording = "published";
-      if (!pui.cloud.ws["new"]) wording = "updated";
+      var wording = "updated";
+      if (!pui.cloud.ws["owner"] && pui.cloud.user) wording = "published";
       if (wsInfo["fork"]) wording = "forked";
       pui.cloud.ws["new"] = false;
       if (wsInfo.name) {
