@@ -102,11 +102,14 @@ pui.cloud.publish = function(wsInfo) {
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
       pui.social.getWorkspaceInfo();
       if (wsInfo["fork"]) pui.social.getComments();
-      if (!wsInfo["fromTemplate"]) {
+      if (wsInfo["fromTemplate"]) {
+        pui.cloud.openWorkspaceFiles(pui.cloud.ws["settings"]);
+      }
+      else {
         pui.cloud["published screen"].show();
         getObj("_cloud_publish_word1").innerHTML = wording;
         getObj("_cloud_publish_word2").innerHTML = wording;
-      }
+      }      
     },
     "onfail": function() {
       pui.alert("An unexpected error ocurred. Check your connection and try again.");
