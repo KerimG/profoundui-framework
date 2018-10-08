@@ -17,7 +17,7 @@ pui.cloud["password screen"]["forgotPassword"] = function() {
 
 pui.cloud["password screen"]["next"] = function() {
   var profile = pui.cloud["signin screen"].profile_name;
-  var password = get("_cloud_password").toLowerCase();
+  var password = get("_cloud_password");
   var passwordEl = getObj("_cloud_password");
   var msgEl = getObj("_cloud_password_msg");
   if (!password) {
