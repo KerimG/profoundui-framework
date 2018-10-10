@@ -7,7 +7,7 @@ pui.cloud.publish = function(wsInfo) {
   if (!wsInfo) wsInfo = {};
 
   if (!wsInfo["fromTemplate"]) pui.cloud.updateSettings();
-  if (!wsInfo["fork"]) pui.ide.saveWidgetSets(true);
+  if (!wsInfo["fork"] && !wsInfo["fromTemplate"]) pui.ide.saveWidgetSets(true);
   screenMask.msg = "Sharing workspace";
   if (pui.cloud.ws["new"]) screenMask.msg = "Updating workspace";
   if (wsInfo["fork"]) screenMask.msg = "Forking workspace";
