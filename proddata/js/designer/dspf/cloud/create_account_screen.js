@@ -82,7 +82,7 @@ pui.cloud["create account screen"]["next"] = function() {
   else {
     for (var i = 0; i < profile.length; i++) {
       var ch = profile.substr(i, 1);
-      if ((ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_")) {
+      if ((ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_") || (ch === "-")) {
         // valid character
       }
       else {
