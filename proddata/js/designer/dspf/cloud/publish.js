@@ -101,6 +101,7 @@ pui.cloud.publish = function(wsInfo) {
       if (wsInfo["fromTemplate"] && response["temp"] === false) {
         pui.cloud.ws["modify"] = false;
         pui.cloud.ws["owner"] = user;
+        pui.cloud.ws["description"] = response["description"];
       }
       pui.ide.refreshRibbon();
       pui.cloud.ws["socialData"] = response["socialData"];
