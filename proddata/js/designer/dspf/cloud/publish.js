@@ -51,8 +51,8 @@ pui.cloud.publish = function(wsInfo) {
         pui.cloud["publish screen"].url_path = workspace_url_path;
         var user = pui.cloud.user;
         var path = "/";
-        if (user && !wsInfo["fromTemplate"]) {
-          path += user + "/";          
+        if (user) {
+          if (!wsInfo["fromTemplate"] || !response["temp"]) path += user + "/";          
         }
         path += workspace_url_path + "/";
         history.pushState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);  // is replaceState() a better choice here?
@@ -97,6 +97,10 @@ pui.cloud.publish = function(wsInfo) {
             tab.currentDisplay.ifsFile = file;
           }
         }
+      }
+      if (wsInfo["fromTemplate"] && response["temp"] === false) {
+        pui.cloud.ws["modify"] = false;
+        pui.cloud.ws["owner"] = user;
       }
       pui.ide.refreshRibbon();
       pui.cloud.ws["socialData"] = response["socialData"];
