@@ -55,7 +55,7 @@ pui.cloud.publish = function(wsInfo) {
           if (!wsInfo["fromTemplate"] || !response["temp"]) path += user + "/";          
         }
         path += workspace_url_path + "/";
-        history.pushState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);  // is replaceState() a better choice here?
+        history.replaceState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);  // is replaceState() a better choice here?
       }
       var wording = "updated";
       if (!pui.cloud.ws["owner"] && pui.cloud.user) wording = "published";
@@ -68,10 +68,14 @@ pui.cloud.publish = function(wsInfo) {
           if (key === "fromPublishScreen") continue;
           pui.cloud.ws[key] = wsInfo[key];
         }
-        if (!pui.cloud.ws["owner"] || wsInfo["fork"]) pui.cloud.ws["owner"] = pui.cloud.user;
+        if (!pui.cloud.ws["owner"] || wsInfo["fork"]) {
+          pui.cloud.ws["owner"] = pui.cloud.user;
+          pui.cloud.ws["ownerDisplayName"] = pui.cloud.userDisplayName;
+        }
       }
       if (wsInfo["fork"]) {
         pui.cloud.ws.id = response["workspace_id"];
+        pui.cloud.ws.contributors = [];
         pui.cloud.ws["SERVER_DIR"] = pui["PROFOUNDJS_DIR"] + pui["dirSeparator"] + "modules" + pui["dirSeparator"] + response["workspace_id"] + pui["dirSeparator"] + "files";
         Ext.getCmp("fileTree").root.setId(pui.cloud.ws["SERVER_DIR"]);
         Ext.getCmp("fileTree").loader.baseParams["workspace_id"] = response["workspace_id"];
@@ -100,7 +104,8 @@ pui.cloud.publish = function(wsInfo) {
       }
       if (wsInfo["fromTemplate"] && response["temp"] === false) {
         pui.cloud.ws["modify"] = false;
-        pui.cloud.ws["owner"] = user;
+        pui.cloud.ws["owner"] = pui.cloud.user;
+        pui.cloud.ws["ownerDisplayName"] = pui.cloud.userDisplayName;
         pui.cloud.ws["description"] = response["description"];
       }
       pui.ide.refreshRibbon();
