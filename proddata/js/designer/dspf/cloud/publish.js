@@ -75,7 +75,7 @@ pui.cloud.publish = function(wsInfo) {
       }
       if (wsInfo["fork"]) {
         pui.cloud.ws.id = response["workspace_id"];
-        pui.cloud.ws.contributors = [];
+        pui.cloud.ws["contributors"] = [];
         pui.cloud.ws["SERVER_DIR"] = pui["PROFOUNDJS_DIR"] + pui["dirSeparator"] + "modules" + pui["dirSeparator"] + response["workspace_id"] + pui["dirSeparator"] + "files";
         Ext.getCmp("fileTree").root.setId(pui.cloud.ws["SERVER_DIR"]);
         Ext.getCmp("fileTree").loader.baseParams["workspace_id"] = response["workspace_id"];
