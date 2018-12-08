@@ -87,7 +87,6 @@ pui.cloud["signin screen"]["social"] = function(type) {
 
 
 pui.cloud["signin screen"]["complete social"] = function(info) {
-  pui["setCookie"]("pui-cloud-token", info["token"], 366, "/");  
   pui.cloud.showUser(info);
   if (pui.cloud.htmlDialogType === "publish" || pui.cloud.htmlDialogType === "fork") {
     pui.cloud["publish screen"].show();

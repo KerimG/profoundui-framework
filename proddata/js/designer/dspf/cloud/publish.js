@@ -1,8 +1,5 @@
 
 pui.cloud.publish = function(wsInfo) {
-
-  var token = pui["getCookie"]("pui-cloud-token");
-  if (typeof token !== "string") token = "";
   
   if (!wsInfo) wsInfo = {};
 
@@ -18,8 +15,7 @@ pui.cloud.publish = function(wsInfo) {
     "params": {
       "workspace_id": pui.cloud.ws.id,
       "settings": JSON.stringify(pui.cloud.ws["settings"], null, 2),
-      "ws_info": JSON.stringify(wsInfo, null, 2),
-      "token": token
+      "ws_info": JSON.stringify(wsInfo, null, 2)
     },
     "async": true,
     "suppressAlert": true,
