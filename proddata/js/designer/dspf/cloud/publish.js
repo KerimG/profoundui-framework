@@ -57,8 +57,7 @@ pui.cloud.publish = function(wsInfo) {
       if (!pui.cloud.ws["owner"] && pui.cloud.user) wording = "published";
       if (wsInfo["fork"]) wording = "forked";
       pui.cloud.ws["new"] = false;
-      if (wsInfo.name) {
-        document.title = "NodeRun IDE - " + wsInfo.name;
+      if (wsInfo.name) {        
         for (key in wsInfo) {
           if (key === "pwd") continue;
           if (key === "fork") continue;
@@ -69,6 +68,9 @@ pui.cloud.publish = function(wsInfo) {
           pui.cloud.ws["owner"] = pui.cloud.user;
           pui.cloud.ws["ownerDisplayName"] = pui.cloud.userDisplayName;
         }
+      }
+      if (pui.cloud.ws.name) {
+        document.title = "NodeRun IDE - " + pui.cloud.ws.name;
       }
       else {
         document.title = "NodeRun IDE";
