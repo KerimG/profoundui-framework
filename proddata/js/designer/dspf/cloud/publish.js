@@ -51,13 +51,14 @@ pui.cloud.publish = function(wsInfo) {
           if (!wsInfo["fromTemplate"] || !response["temp"]) path += user + "/";          
         }
         path += workspace_url_path + "/";
-        history.replaceState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);  // is replaceState() a better choice here?
+        history.replaceState({ "workspace_id": pui.cloud.ws.id, "workspace_name": workspace_name, "workspace_url_path": workspace_url_path }, document.title, path);        
       }
       var wording = "updated";
       if (!pui.cloud.ws["owner"] && pui.cloud.user) wording = "published";
       if (wsInfo["fork"]) wording = "forked";
       pui.cloud.ws["new"] = false;
       if (wsInfo.name) {
+        document.title = "NodeRun IDE - " + wsInfo.name;
         for (key in wsInfo) {
           if (key === "pwd") continue;
           if (key === "fork") continue;
@@ -68,6 +69,9 @@ pui.cloud.publish = function(wsInfo) {
           pui.cloud.ws["owner"] = pui.cloud.user;
           pui.cloud.ws["ownerDisplayName"] = pui.cloud.userDisplayName;
         }
+      }
+      else {
+        document.title = "NodeRun IDE";
       }
       if (wsInfo["fork"]) {
         pui.cloud.ws.id = response["workspace_id"];
