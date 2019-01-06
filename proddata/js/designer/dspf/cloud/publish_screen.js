@@ -25,9 +25,9 @@ pui.cloud["publish screen"].show = function() {
       getObj("_cloud_run").checked = ws["run"];
       getObj("_cloud_comment").checked = ws["comment"];
       getObj("_cloud_protect").checked = ws["protect"];
-      getObj("_cloud_description").value = ws["description"];
-      getObj("_cloud_keywords").value = ws["keywords"];
     }
+    getObj("_cloud_description").value = ws["description"];
+    getObj("_cloud_keywords").value = ws["keywords"];
   }
   else {
     // Immediately skip to publish step because the user is updating another owner's workspace
