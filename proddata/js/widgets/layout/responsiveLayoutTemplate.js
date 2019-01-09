@@ -20,7 +20,7 @@
 
 
 pui.layout.template.helpTextResponsiveProperties = function(defVal, descVal, descAdd) {
-  var codeOpen = "<code style='color: blue; letter-spacing: 0px; font-weight: bold;'>";
+  var codeOpen = "<code class='propdefault'>";
   var codeClose = "</code>";
   var falseSpan = "<span title='The default value of the property is false.'>false</span>";
   var trueSpan = "<span title='The default value of the property is true.'>true</span>";
@@ -35,38 +35,35 @@ pui.layout.template.helpTextResponsiveProperties = function(defVal, descVal, des
   var positionSpan = "[<span title='The default values are determined by where the &#010;widget is dropped/placed on the Designer grid.'>user drop point</span>]";
   var bindSpan = "<span title='This property requires being bound and a value passed by an RPG program.'>[bound value]</span>";
   var otherText = " The 'Other...' option can be selected to write in a custom value.";
-  var posDefVals = ["css", "blank", "false", "true", "placeholder", "browser", "theme", "skin", "id", "bind", "widget", "position"];
   // ------------------
   // Default Value:
   var helpString = "<hr><b title='The default value(s) of this property.'>Default Value:</b> ";
   // <c>value</c>
   helpString += codeOpen;
-  if (posDefVals.indexOf(defVal) != -1) {
-    if (defVal === "true") {
-      helpString += trueSpan;
-    } else if (defVal === "blank") {
-      helpString += blankSpan;
-    } else if (defVal === "css") {
-      helpString += cssSpan;
-    } else if (defVal === "false") {
-      helpString += falseSpan;
-    } else if (defVal === "placeholder") {
-      helpString += placeholderSpan;
-    } else if (defVal === "browser") {
-      helpString += browserSpan;
-    } else if (defVal === "theme") {
-      helpString += themeSpan;
-    } else if (defVal === "skin") {
-      helpString += skinSpan;
-    } else if (defVal === "id") {
-      helpString += idSpan;
-    } else if (defVal === "bind") {
-      helpString += bindSpan;
-    } else if (defVal === "widget") {
-      helpString += widgetSpan;
-    } else if (defVal === "position") {
-      helpString += positionSpan;
-    }
+  if (defVal === "true") {
+    helpString += trueSpan;
+  } else if (defVal === "blank") {
+    helpString += blankSpan;
+  } else if (defVal === "css") {
+    helpString += cssSpan;
+  } else if (defVal === "false") {
+    helpString += falseSpan;
+  } else if (defVal === "placeholder") {
+    helpString += placeholderSpan;
+  } else if (defVal === "browser") {
+    helpString += browserSpan;
+  } else if (defVal === "theme") {
+    helpString += themeSpan;
+  } else if (defVal === "skin") {
+    helpString += skinSpan;
+  } else if (defVal === "id") {
+    helpString += idSpan;
+  } else if (defVal === "bind") {
+    helpString += bindSpan;
+  } else if (defVal === "widget") {
+    helpString += widgetSpan;
+  } else if (defVal === "position") {
+    helpString += positionSpan;
   } else {
     helpString += defVal;
   }
@@ -85,7 +82,7 @@ pui.layout.template.helpTextResponsiveProperties = function(defVal, descVal, des
   helpString += "<hr><br>";
 
   return helpString;
-}
+};
 
 /**
  * Depending on argument: 
