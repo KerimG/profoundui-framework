@@ -37,7 +37,8 @@ pui.layout.template.responsiveLayoutTemplate = function (parms) {
     return pui.layout.mergeProps([
       { name: "layout items", help: pui.helpTextProperties("5", "The number of containers for this layout.", ["other"]), choices: ['1', '2', '3', '4', '5', '6', 'Other...'] },
       { name: "style rules", type: "responsive", bind: false, help: pui.helpTextProperties("blank", "String of CSS stylesheet rules, used to define positions and dimensions of containers. Leave empty when styles are expected to be defined" +   " in an external stylesheet. See <a target=\"_blank\" href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\">Responsive Layout</a> for more information.") },
-      { name: "use viewport", help: pui.helpTextProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information."), choices: ["true", "false"] }
+      { name: "use viewport", help: pui.helpTextProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information."), choices: ["true", "false"] },
+      { name: "container names", type: "list", help: pui.helpTextProperties("blank", "List of container names to aid in designing screens. Names appear only in Responsive Dialog preview and Designer canvas.") }
     ]);
   }
 
@@ -68,6 +69,10 @@ pui.layout.template.responsiveLayoutTemplate = function (parms) {
 
   // Map special setters to properties. These are called at the end of pui.Layout.layout.setProperty(), which is
   // the global property setter for "layout" widgets. When one property changes, each are evaluated in this order.
+  
+  if (properties["container names"] != null) {
+    reslay.setContainerNames(properties["container names"]);  //setNumItems depends on the value set here.
+  }
 
   if (properties["layout items"] != null) {
     reslay.setNumItems(properties["layout items"]);
@@ -80,6 +85,6 @@ pui.layout.template.responsiveLayoutTemplate = function (parms) {
   if (properties["style rules"] != null) {
     reslay.setRules(properties["style rules"]);
   }
-
+  
   return dom;
 };
