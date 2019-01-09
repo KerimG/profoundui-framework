@@ -20,7 +20,7 @@
 
 /**
  * Depending on argument: returns template properties for the Tab Layout; or returns a DIV element to contain the widget.
- * @param {Object} parms
+ * @param {Object} parms    when parms.returnProps is not true, returns DIV element.
  * @returns {Element|Object}
  */
 pui.layout.template.tabTemplate = function(parms) {  
@@ -49,8 +49,8 @@ pui.layout.template.tabTemplate = function(parms) {
       pui.layout.adoptNamedProperty("text decoration"),
       pui.layout.adoptNamedProperty("text transform"),
       { name: "lazy load", choices: ["true", "false"],
-        help: pui.layout.helpTextLayoutProperties("false","When true, render contents of tab after the user clicks a tab instead of rendering everything immediately (which can be slower).",[],"") },
-      { name: "onlazyload", type: "js", help: pui.layout.helpTextLayoutProperties("blank","Initiates a client-side script after a container is rendered lazily. (See lazy load property.)",[])}
+        help: pui.helpTextProperties("false","When true, render contents of tab after the user clicks a tab instead of rendering everything immediately (which can be slower).") },
+      { name: "onlazyload", type: "js", help: pui.helpTextProperties("blank","Initiates a client-side script after a container is rendered lazily. (See lazy load property.)")}
     ]);
   }
 

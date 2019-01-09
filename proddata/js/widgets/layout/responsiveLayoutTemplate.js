@@ -17,73 +17,6 @@
 //  In the COPYING and COPYING.LESSER files included with the Profound UI Runtime.
 //  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-pui.layout.template.helpTextResponsiveProperties = function(defVal, descVal, descAdd) {
-  var codeOpen = "<code class='propdefault'>";
-  var codeClose = "</code>";
-  var falseSpan = "<span title='The default value of the property is false.'>false</span>";
-  var trueSpan = "<span title='The default value of the property is true.'>true</span>";
-  var blankSpan = "<span title='The default value of the property is unset or not defined.'>[blank]</span>";
-  var cssSpan = "[<span title='The default value is the value defined in the CSS &#010;(theme/developer CSS classes defined in a CSS&#010;file or \"style\" DOM attribute) for the element.'>CSS value</span>]";
-  var placeholderSpan = "[<span title='The default value of the property is placeholder &#010;text, such as \"Lorem Ipsum...\" or \"HTML Content\".'>placeholder text</span>]";
-  var browserSpan = "[<span title='The default is determined by the browser for the element.'>browser setting</span>]";
-  var widgetSpan = "[<span title='The default value of this property is determined by the selected widget.'>selected widget</span>]";
-  var themeSpan = "[<span title='The default value of this property is based on the selected widget and its theme/template/purpose.'>selected widget</span>]";
-  var skinSpan = "[<span title='The default value of this property is determined by &#010;the selected skin and it's defaults, CSS, and/or JavaScript customizations.'>selected skin</span>]";
-  var idSpan = "[<span title='The default ID is based on the name of the selected &#010;widget with no spaces and the first letter of each word capitalized.'>WidgetName</span>][<span title='A whole number value starting from 1 determined by how many of the same widget have previously been added to the Design grid.'>number</span>]";
-  var positionSpan = "[<span title='The default values are determined by where the &#010;widget is dropped/placed on the Designer grid.'>user drop point</span>]";
-  var bindSpan = "<span title='This property requires being bound and a value passed by an RPG program.'>[bound value]</span>";
-  var otherText = " The 'Other...' option can be selected to write in a custom value.";
-  // ------------------
-  // Default Value:
-  var helpString = "<hr><b title='The default value(s) of this property.'>Default Value:</b> ";
-  // <c>value</c>
-  helpString += codeOpen;
-  if (defVal === "true") {
-    helpString += trueSpan;
-  } else if (defVal === "blank") {
-    helpString += blankSpan;
-  } else if (defVal === "css") {
-    helpString += cssSpan;
-  } else if (defVal === "false") {
-    helpString += falseSpan;
-  } else if (defVal === "placeholder") {
-    helpString += placeholderSpan;
-  } else if (defVal === "browser") {
-    helpString += browserSpan;
-  } else if (defVal === "theme") {
-    helpString += themeSpan;
-  } else if (defVal === "skin") {
-    helpString += skinSpan;
-  } else if (defVal === "id") {
-    helpString += idSpan;
-  } else if (defVal === "bind") {
-    helpString += bindSpan;
-  } else if (defVal === "widget") {
-    helpString += widgetSpan;
-  } else if (defVal === "position") {
-    helpString += positionSpan;
-  } else {
-    helpString += defVal;
-  }
-  helpString += codeClose;
-  // ------------------
-  // Description:
-  helpString += "<hr><b title='A general description of the widget's properties.'>Description: </b>";
-  // Description text...
-  helpString += descVal;
-
-  // Other...
-  if (descAdd.indexOf("other") != 1) {
-    helpString += otherText;
-  }
-  // ------------------
-  helpString += "<hr><br>";
-
-  return helpString;
-};
-
 /**
  * Depending on argument: 
  * 1. returns template properties for the Responsive Layout.
@@ -102,9 +35,10 @@ pui.layout.template.responsiveLayoutTemplate = function (parms) {
   if (returnProps) {
     // Define the properties that appear in Template Settings in Designer.
     return pui.layout.mergeProps([
-      { name: "layout items", help: pui.layout.template.helpTextResponsiveProperties("5", "The number of containers for this layout.", ["other"]), choices: ['1', '2', '3', '4', '5', '6', 'Other...'] },
-      { name: "style rules", type: "responsive", bind: false, help: pui.layout.template.helpTextResponsiveProperties("<br>@media screen { <br>&nbsp;&nbsp;&nbsp;#_id_ > .puiresp { <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:grid; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows:auto; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns:repeat(4, 1fr); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-column-gap:3px; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid-row-gap:3px;<br>&nbsp;&nbsp;&nbsp;}<br>}", "String of CSS stylesheet rules, used to define positions and dimensions of containers. Leave empty when styles are expected to be defined" +   " in an external stylesheet. See <a target=\"_blank\" href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\">Responsive Layout</a> for more information.", []) },
-      { name: "use viewport", help: pui.layout.template.helpTextResponsiveProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information.", []), choices: ["true", "false"] }
+      { name: "layout items", help: pui.helpTextProperties("5", "The number of containers for this layout.", ["other"]), choices: ['1', '2', '3', '4', '5', '6', 'Other...'] },
+      { name: "style rules", type: "responsive", bind: false, help: pui.helpTextProperties("blank", "String of CSS stylesheet rules, used to define positions and dimensions of containers. Leave empty when styles are expected to be defined" +   " in an external stylesheet. See <a target=\"_blank\" href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\">Responsive Layout</a> for more information.") },
+      { name: "use viewport", help: pui.helpTextProperties("true", "Determines how @media rules in &quot;style rules&quot; are interpreted. When &quot;use viewport&quot; is true, " +   "the page size determines which @media rules to apply. When false, the layout's height and width determine which @media rules to apply. <br><br>See " +   "<a href=\"http://www.profoundlogic.com/docs/display/PUI/Responsive+Layout\" target=\"_blank\">Responsive Layout</a> for more information."), choices: ["true", "false"] },
+      { name: "box names", type: "list", help: pui.helpTextProperties("blank", "Descriptive list of box container names to aid in designing screens.") }
     ]);
   }
 
