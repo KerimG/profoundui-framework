@@ -46,7 +46,7 @@ pui.cloud.publish = function(wsInfo) {
         pui.cloud["publish screen"].name = workspace_name;
         pui.cloud["publish screen"].url_path = workspace_url_path;
         var user = pui.cloud.user;
-        var path = "/";
+        var path = "/ide/";
         if (user) {
           if (!wsInfo["fromTemplate"] || !response["temp"]) path += user + "/";          
         }
