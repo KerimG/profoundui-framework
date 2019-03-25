@@ -111,6 +111,7 @@ pui.cloud.publish = function(wsInfo) {
         pui.cloud.ws["description"] = response["description"];
       }
       pui.ide.refreshRibbon();
+      pui.cloud.updateThumbnail();
       pui.cloud.ws["socialData"] = response["socialData"];
       Ext.getCmp("southPanel").setTitle(pui.social.genTitle());
       pui.social.getWorkspaceInfo();
