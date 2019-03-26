@@ -79,10 +79,15 @@ pui.cloud["create account screen"]["next"] = function() {
     profileEl.focus();
     send = false;
   }
+  else if (profile.indexOf("  ") >= 0) {
+    profileMsgEl.innerHTML = "<br/>Profile name may not contain multiple white spaces in a row.";
+    profileEl.focus();
+    send = false;
+  }
   else {
     for (var i = 0; i < profile.length; i++) {
       var ch = profile.substr(i, 1);
-      if ((ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_") || (ch === "-")) {
+      if ((ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9") || (ch === ".") || (ch === "_") || (ch === "-") || (ch === " ")) {
         // valid character
       }
       else {
@@ -93,6 +98,7 @@ pui.cloud["create account screen"]["next"] = function() {
       }
     }
   }
+  profile = profile.replace(/ /g, "-");
 
   if (!first || !last) {
     nameMsgEl.innerHTML = "<br/>Enter first and last name.";
